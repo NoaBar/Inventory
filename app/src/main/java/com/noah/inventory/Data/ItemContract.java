@@ -1,0 +1,25 @@
+package com.noah.inventory.Data;
+
+import android.provider.BaseColumns;
+
+public final class ItemContract {
+
+    private ItemContract(){}
+
+    public static final class ItemEntry implements BaseColumns{
+
+        public final static String TABLE_NAME = "Items";
+
+        public final static String _ID = BaseColumns._ID;
+        public final static String COLUMN_ITEM_NAME = "name";
+        public final static String COLUMN_ITEM_PRICE = "price";
+        public final static String COLUMN_ITEM_QUANTITY = "quantity";
+        public final static String COLUMN_ITEM_SUPPLIER_NAME = "supplier name";
+        public final static String COLUMN_ITEM_SUPPLIER_PHONE_NUMBER ="supplier phone number";
+
+        //public final static int QUANTITY_int = 0;
+
+    }
+
+}
+
