@@ -28,19 +28,19 @@
                 android:id="@+id/edit_Product_name"
                 android:hint="@string/name"
                 android:inputType="textCapWords"
-                style="@style/EditorFieldStyle" />
+                style="@style/AddItemFieldStyle" />
 
             <EditText
                 android:id="@+id/edit_Product_price"
                 android:hint="@string/price"
                 android:inputType="textCapWords"
-                style="@style/EditorFieldStyle" />
+                style="@style/AddItemFieldStyle" />
 
             <EditText
                 android:id="@+id/edit_Product_quantity"
                 android:hint="@string/quantity"
                 android:inputType="number"
-                style="@style/EditorFieldStyle" />
+                style="@style/AddItemFieldStyle" />
 
 
         </LinearLayout>
@@ -92,12 +92,12 @@
                 android:id="@+id/supplier_name"
                 android:hint="@string/name"
                 android:inputType="text"
-                style="@style/EditorFieldStyle" />
+                style="@style/AddItemFieldStyle" />
             <EditText
                 android:id="@+id/supplier_phone_number"
                 android:hint="@string/phone_number"
                 android:inputType="phone"
-                style="@style/EditorFieldStyle" />
+                style="@style/AddItemFieldStyle" />
 
         </LinearLayout>
     </LinearLayout>
