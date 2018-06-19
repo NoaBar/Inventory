@@ -11,4 +11,18 @@
     <string name="supplier">Supplier</string>
     <string name="product">Product</string>
     <string name="item">Item</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+
+    <!-- Label for dropdown menu option if the item's category is other-->
+    <string name="category_other">Other</string>
+
+    <!-- Label for dropdown menu option if the item's category is food-->
+    <string name="category_food">Food</string>
+
+    <!-- Label for dropdown menu option if the item's category is drink-->
+    <string name="category_drink">Drink</string>
+
+
+
 </resources>
