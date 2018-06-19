@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.noah.inventory.Data.ItemContract.ItemEntry;
 
-
 /**
  * Database helper for Inventory app. Manages database creation and version management.
  */
@@ -16,7 +15,8 @@ public class ItemDbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "inventory.db";
 
     /**
-     * Database version. If you change the database schema, you must increment the database version.
+     * Database version.
+     * Needs to increase by 1 when the schema is changed.
      */
     private static final int DATABASE_VERSION = 1;
 
@@ -34,12 +34,12 @@ public class ItemDbHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create a String that contains the SQL statement to create the pets table
+        // Create a String that contains the SQL statement to create the items table
         String SQL_CREATE_ITEMS_TABLE = "CREATE TABLE " + ItemEntry.TABLE_NAME + " ("
                 + ItemEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + ItemEntry.COLUMN_ITEM_NAME + " TEXT NOT NULL, "
                 + ItemEntry.COLUMN_ITEM_PRICE + " INTEGER NOT NULL, "
-                + ItemEntry.COLUMN_ITEM_QUANTITY + " INTEGER NOT NULL DEFAULT 0, "
+                + ItemEntry.COLUMN_ITEM_QUANTITY + " INTEGER NOT NULL, "
                 + ItemEntry.COLUMN_ITEM_CATEGORY + " INTEGER NOT NULL, "
                 + ItemEntry.COLUMN_ITEM_SUPPLIER_NAME + " TEXT NOT NULL, "
                 + ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE_NUMBER + " TEXT);";

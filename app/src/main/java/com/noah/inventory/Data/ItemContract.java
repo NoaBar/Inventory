@@ -15,8 +15,8 @@ public final class ItemContract {
         public final static String COLUMN_ITEM_PRICE = "price";
         public final static String COLUMN_ITEM_QUANTITY = "quantity";
         public final static String COLUMN_ITEM_CATEGORY = "category";
-        public final static String COLUMN_ITEM_SUPPLIER_NAME = "supplier name";
-        public final static String COLUMN_ITEM_SUPPLIER_PHONE_NUMBER ="supplier phone number";
+        public final static String COLUMN_ITEM_SUPPLIER_NAME = "supplier_name";
+        public final static String COLUMN_ITEM_SUPPLIER_PHONE_NUMBER ="supplier_phone_number";
 
         public final static int ITEM_CATEGORY_OTHER = 0;
         public final static int ITEM_CATEGORY_FOOD = 1;
