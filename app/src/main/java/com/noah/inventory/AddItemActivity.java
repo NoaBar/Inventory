@@ -139,7 +139,7 @@ public class AddItemActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-                // Save pet to database
+                // Save item to database
                 insertItem();
                 //Exit activity
                 finish();
