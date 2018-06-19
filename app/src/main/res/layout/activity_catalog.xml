@@ -9,7 +9,7 @@
     tools:context=".CatalogActivity">
 
     <TextView
-        android:id="@+id/text_view_Products"
+        android:id="@+id/text_view_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/activity_margin"/>

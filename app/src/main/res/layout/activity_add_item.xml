@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="@string/product"
+            android:text="@string/item"
             style="@style/CategoryStyle" />
 
         <LinearLayout
