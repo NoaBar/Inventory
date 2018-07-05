@@ -34,7 +34,6 @@ public class CatalogActivity extends AppCompatActivity {
         });
 
         mDbHelper = new ItemDbHelper(this);
-        insertData();
     }
 
     @Override
@@ -42,24 +41,6 @@ public class CatalogActivity extends AppCompatActivity {
         super.onStart();
         displayDatabaseInfo();
     }
-
-    private void insertData() {
-        ItemDbHelper mDbHelper = new ItemDbHelper(this);
-        // Gets the database in write mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(ItemEntry.COLUMN_ITEM_NAME, "Primitivo");
-        values.put(ItemEntry.COLUMN_ITEM_PRICE, 58);
-        values.put(ItemEntry.COLUMN_ITEM_QUANTITY, 3);
-        values.put(ItemEntry.COLUMN_ITEM_CATEGORY, ItemEntry.ITEM_CATEGORY_DRINK);
-        values.put(ItemEntry.COLUMN_ITEM_SUPPLIER_NAME, "Jimmy");
-        values.put(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE_NUMBER, "+41789999999");
-
-        // Insert a new row for new item in the database.
-        db.insert(ItemEntry.TABLE_NAME, null, values);
-    }
-
 
         /**
          * Helper method to display information in the onscreen TextView about the state of
