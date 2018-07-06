@@ -118,8 +118,8 @@ public class ItemProvider extends ContentProvider {
     public Uri insert(Uri uri, ContentValues contentValues) {
         final int match = sUriMatcher.match(uri);
         switch (match) {
-            case PETS:
-                return insertPet(uri, contentValues);
+            case ITEMS:
+                return insertItem(uri, contentValues);
             default:
                 throw new IllegalArgumentException("Insertion is not supported for " + uri);
         }
