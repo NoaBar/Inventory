@@ -1,22 +1,28 @@
 package com.noah.inventory;
 
-import android.content.ContentValues;
+import android.app.LoaderManager;
+import android.content.ContentUris;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.noah.inventory.Data.ItemContract.ItemEntry;
-import com.noah.inventory.Data.ItemDbHelper;
 
-public class CatalogActivity extends AppCompatActivity {
+public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Database helper to provide access to the database */
-    private ItemDbHelper mDbHelper;
+    private static final int ITEM_LOADER = 0;
+    ItemCursorAdapter mCursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,82 +39,98 @@ public class CatalogActivity extends AppCompatActivity {
             }
         });
 
-        mDbHelper = new ItemDbHelper(this);
+        // Find the ListView which will be populated with the item data
+        ListView petListView = (ListView) findViewById(R.id.list);
+
+        // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
+        View emptyView = findViewById(R.id.empty_view);
+        petListView.setEmptyView(emptyView);
+
+        //Setup an adapter to create a list item for each row of item data in the Cursor.
+        //There is no pet data yet (until the loader finishes) so pass in null for the cursor.
+        mCursorAdapter = new ItemCursorAdapter(this, null);
+        petListView.setAdapter(mCursorAdapter);
+
+        //Setup item click listener
+        petListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+                //create new intent to go to {@link AddItemActivity}
+                Intent intent = new Intent(CatalogActivity.this, AddItemActivity.class);
+
+                //Form the content URI that represents the specific item that was clicked on.
+                Uri currentItemUri = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, id);
+
+                //Set the URI on the data field of the intent
+                intent.setData(currentItemUri);
+
+                //Launch the {@link EditorActivity} to display the data for the current pet.
+                startActivity(intent);
+            }
+        });
+
+        //kick off the loader
+        getLoaderManager().initLoader(ITEM_LOADER, null, this);
+    }
+
+    /**
+     * Helper method to delete all pets in the database.
+     */
+    private void deleteAllItems() {
+        int rowsDeleted = getContentResolver().delete(ItemEntry.CONTENT_URI, null, null);
+        Log.v("CatalogActivity", rowsDeleted + " rows deleted from item database");
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        displayDatabaseInfo();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_catalog.xml file.
+        // adds menu items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_catalog, menu);
+        return true;
     }
 
-        /**
-         * Helper method to display information in the onscreen TextView about the state of
-         * the items database.
-         */
-    private void displayDatabaseInfo() {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // User clicked on a menu option in the app bar overflow menu
+        switch (item.getItemId()) {
+            // Respond to a click on the "Delete all entries" menu option
+            case R.id.action_delete_all_entries:
+                deleteAllItems();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        //Define a projection that specifies the columns from the table we care about.
         String[] projection = {
                 ItemEntry._ID,
                 ItemEntry.COLUMN_ITEM_NAME,
-                ItemEntry.COLUMN_ITEM_PRICE,
-                ItemEntry.COLUMN_ITEM_QUANTITY,
                 ItemEntry.COLUMN_ITEM_CATEGORY,
-                ItemEntry.COLUMN_ITEM_SUPPLIER_NAME,
-                ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE_NUMBER
-        };
+                ItemEntry.COLUMN_ITEM_QUANTITY,
+                ItemEntry.COLUMN_ITEM_PRICE};
 
-        Cursor cursor = db.query(
-                ItemEntry.TABLE_NAME,
-                projection,
-                null,
-                null,
-                null,
-                null,
-                null);
+        //this loader will execute the ContentProvider's query method on a background thread
+        return new CursorLoader(this,   //parent activity context
+                ItemEntry.CONTENT_URI,          //Provider content URI to query
+                projection,                   //Columns to include in the resulting Cursor
+                null,                  //No selection clause
+                null,              //No selection arguments
+                null);                //Default sort order
+    }
 
-        TextView displayView = (TextView) findViewById(R.id.text_view_items);
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        // Update {@link PetCursorAdapter} with this new cursor containing updated pet data
+        mCursorAdapter.swapCursor(data);
+    }
 
-        try {
-            displayView.setText("The items table contains " + cursor.getCount() + " items.\n\n");
-            displayView.append(ItemEntry._ID + " - " +
-                    ItemEntry.COLUMN_ITEM_NAME + " - " +
-                    ItemEntry.COLUMN_ITEM_PRICE + " - " +
-                    ItemEntry.COLUMN_ITEM_QUANTITY + " - " +
-                    ItemEntry.COLUMN_ITEM_CATEGORY + " - " +
-                    ItemEntry.COLUMN_ITEM_SUPPLIER_NAME + " - "+
-                    ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE_NUMBER + "\n");
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        //Callback called when the data needs to be deleted.
+        mCursorAdapter.swapCursor(null);
 
-            int idColumnIndex = cursor.getColumnIndex(ItemEntry._ID);
-            int nameColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_NAME);
-            int priceColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_PRICE);
-            int quantityColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_QUANTITY);
-            int categoryColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_CATEGORY);
-            int supplierNameColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_SUPPLIER_NAME);
-            int supplierPhoneColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE_NUMBER);
-
-            while (cursor.moveToNext()) {
-                          int currentID = cursor.getInt(idColumnIndex);
-                String currentName = cursor.getString(nameColumnIndex);
-                int currentPrice = cursor.getInt(priceColumnIndex);
-                int currentQuantity = cursor.getInt(quantityColumnIndex);
-                int currentCategory = cursor.getInt(categoryColumnIndex);
-                String currentSupplierName = cursor.getString(supplierNameColumnIndex);
-                String currentSupplierPhone = cursor.getString(supplierPhoneColumnIndex);
-
-                // Display the values from each column of the current row in the cursor in the TextView
-                displayView.append(("\n" + currentID + " - " +
-                        currentName + " - " +
-                        currentPrice + " - " +
-                        currentQuantity + " - " +
-                        currentCategory + " - " +
-                        currentSupplierName + " - " +
-                        currentSupplierPhone));
-            }
-        } finally {
-            cursor.close();
-        }
     }
 }
