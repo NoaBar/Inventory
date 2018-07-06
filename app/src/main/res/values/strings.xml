@@ -26,5 +26,7 @@
     <string name="quantity_title_detail">Quantity:</string>
     <string name="price_title">Price:</string>
 
+    <!-- Label for overflow menu option that deletes all item data in the app-->
+    <string name="action_delete_all_entries">Delete All Items</string>
 
 </resources>
