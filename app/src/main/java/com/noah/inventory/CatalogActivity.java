@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import com.noah.inventory.data.ItemContract.ItemEntry;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -40,19 +39,18 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         });
 
         // Find the ListView which will be populated with the item data
-        ListView petListView = (ListView) findViewById(R.id.list);
+        ListView itemListView = (ListView) findViewById(R.id.list);
 
         // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
         View emptyView = findViewById(R.id.empty_view);
-        petListView.setEmptyView(emptyView);
+        itemListView.setEmptyView(emptyView);
 
-        //Setup an adapter to create a list item for each row of item data in the Cursor.
-        //There is no pet data yet (until the loader finishes) so pass in null for the cursor.
+        //An adapter to create a list item for each row of item data in the Cursor.
         mCursorAdapter = new ItemCursorAdapter(this, null);
-        petListView.setAdapter(mCursorAdapter);
+        itemListView.setAdapter(mCursorAdapter);
 
         //Setup item click listener
-        petListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
@@ -65,7 +63,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 //Set the URI on the data field of the intent
                 intent.setData(currentItemUri);
 
-                //Launch the {@link EditorActivity} to display the data for the current pet.
+                //Launch the {@link EditorActivity} to display the data for the current item.
                 startActivity(intent);
             }
         });
@@ -75,7 +73,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     }
 
     /**
-     * Helper method to delete all pets in the database.
+     * Helper method to delete all items in the database.
      */
     private void deleteAllItems() {
         int rowsDeleted = getContentResolver().delete(ItemEntry.CONTENT_URI, null, null);
@@ -123,7 +121,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // Update {@link PetCursorAdapter} with this new cursor containing updated pet data
+        // Update {@link ItemCursorAdapter} with this new cursor containing updated item data
         mCursorAdapter.swapCursor(data);
     }
 

@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.noah.inventory.data.ItemContract.ItemEntry;
 
 
-
 public class ItemCursorAdapter extends CursorAdapter {
 
     /**
@@ -64,7 +63,6 @@ public class ItemCursorAdapter extends CursorAdapter {
         int priceColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_PRICE);
 
 
-
         // Read the pet attributes from the Cursor for the current pet
         String itemName = cursor.getString(nameColumnIndex);
         String itemCategory = cursor.getString(categoryColumnIndex);
@@ -73,9 +71,23 @@ public class ItemCursorAdapter extends CursorAdapter {
 
         // Update the TextViews with the attributes for the current item
         nameTextView.setText(itemName);
-        categoryTextView.setText(itemCategory);
         quantityTextView.setText(itemQuantity);
         priceTextView.setText(itemPrice);
-    }
+        //////////categoryTextView.setText(itemCategory);
 
+        switch (itemCategory) {
+            case "1":
+                categoryTextView.setText(R.string.category_food);
+                break;
+            case "2":
+                categoryTextView.setText(R.string.category_drink);
+                break;
+            case "0":
+                categoryTextView.setText(R.string.category_other);
+                break;
+            default:
+                categoryTextView.setText(R.string.category_other);
+                break;
+        }
+    }
 }
