@@ -18,15 +18,21 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import com.noah.inventory.data.ItemContract.ItemEntry;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnItemClick;
+
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int ITEM_LOADER = 0;
     ItemCursorAdapter mCursorAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
+        ButterKnife.bind(this);
 
         // Setup FAB (floating action button) to open AddItemActivity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -49,27 +55,24 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         mCursorAdapter = new ItemCursorAdapter(this, null);
         itemListView.setAdapter(mCursorAdapter);
 
-        //Setup item click listener
-        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-
-                //create new intent to go to {@link AddItemActivity}
-                Intent intent = new Intent(CatalogActivity.this, AddItemActivity.class);
-
-                //Form the content URI that represents the specific item that was clicked on.
-                Uri currentItemUri = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, id);
-
-                //Set the URI on the data field of the intent
-                intent.setData(currentItemUri);
-
-                //Launch the {@link EditorActivity} to display the data for the current item.
-                startActivity(intent);
-            }
-        });
-
         //kick off the loader
         getLoaderManager().initLoader(ITEM_LOADER, null, this);
+    }
+
+    //Setup item click listener
+    @OnItemClick(R.id.list)
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        //create new intent to go to {@link AddItemActivity}
+        Intent intent = new Intent(CatalogActivity.this, AddItemActivity.class);
+
+        //Form the content URI that represents the specific item that was clicked on.
+        Uri currentItemUri = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, id);
+
+        //Set the URI on the data field of the intent
+        intent.setData(currentItemUri);
+
+        //Launch the {@link EditorActivity} to display the data for the current item.
+        startActivity(intent);
     }
 
     /**

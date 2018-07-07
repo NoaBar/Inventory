@@ -25,6 +25,9 @@ import android.widget.Toast;
 
 import com.noah.inventory.data.ItemContract.ItemEntry;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class AddItemActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -41,12 +44,12 @@ public class AddItemActivity extends AppCompatActivity implements
     /**
      * Fields to enter the item info
      */
-    private EditText mNameEditText;
-    private EditText mPriceEditText;
-    private EditText mQuantityEditText;
-    private Spinner mCategorySpinner;
-    private EditText mSupplierNameEditText;
-    private EditText mSupplierPhoneEditText;
+    @BindView(R.id.edit_item_name) EditText mNameEditText;
+    @BindView(R.id.edit_item_price) EditText mPriceEditText;
+    @BindView(R.id.edit_item_quantity) EditText mQuantityEditText;
+    @BindView(R.id.spinner_category) Spinner mCategorySpinner;
+    @BindView(R.id.edit_supplier_name) EditText mSupplierNameEditText;
+    @BindView(R.id.edit_supplier_phone_number) EditText mSupplierPhoneEditText;
 
     /**
      * Category of the item. The possible values are:
@@ -77,6 +80,7 @@ public class AddItemActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+        ButterKnife.bind(this);
 
         // Examine the intent that was used to launch this activity,
         // in order to figure out if we're creating a new item or editing an existing one.
@@ -99,14 +103,6 @@ public class AddItemActivity extends AppCompatActivity implements
             // and display the current values in the editor
             getLoaderManager().initLoader(EXISTING_ITEM_LOADER, null, this);
         }
-
-        // Find all relevant views that we will need to read user input from
-        mNameEditText = (EditText) findViewById(R.id.edit_item_name);
-        mPriceEditText = (EditText) findViewById(R.id.edit_item_price);
-        mQuantityEditText = (EditText) findViewById(R.id.edit_item_quantity);
-        mCategorySpinner = (Spinner) findViewById(R.id.spinner_category);
-        mSupplierNameEditText = (EditText) findViewById(R.id.edit_supplier_name);
-        mSupplierPhoneEditText = (EditText) findViewById(R.id.edit_supplier_phone_number);
 
         // Setup OnTouchListeners on all the input fields, so we can determine if the user
         // has touched or modified them. This will let us know if there are unsaved changes
@@ -208,7 +204,7 @@ public class AddItemActivity extends AppCompatActivity implements
         values.put(ItemEntry.COLUMN_ITEM_NAME, nameString);
         values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantityString);
         values.put(ItemEntry.COLUMN_ITEM_PRICE, priceString);
-        values.put (ItemEntry.COLUMN_ITEM_CATEGORY, mCategory);
+        values.put(ItemEntry.COLUMN_ITEM_CATEGORY, mCategory);
         values.put(ItemEntry.COLUMN_ITEM_SUPPLIER_NAME, supplierNameString);
         values.put(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE_NUMBER, supplierPhoneString);
 
@@ -494,9 +490,6 @@ public class AddItemActivity extends AppCompatActivity implements
                         Toast.LENGTH_SHORT).show();
             }
         }
-
         finish();
     }
-
-
 }
