@@ -62,7 +62,6 @@ public class ItemCursorAdapter extends CursorAdapter {
         int quantityColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_QUANTITY);
         int priceColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_PRICE);
 
-
         // Read the pet attributes from the Cursor for the current pet
         String itemName = cursor.getString(nameColumnIndex);
         String itemCategory = cursor.getString(categoryColumnIndex);
@@ -73,7 +72,6 @@ public class ItemCursorAdapter extends CursorAdapter {
         nameTextView.setText(itemName);
         quantityTextView.setText(itemQuantity);
         priceTextView.setText(itemPrice);
-        //////////categoryTextView.setText(itemCategory);
 
         switch (itemCategory) {
             case "1":
@@ -81,9 +79,6 @@ public class ItemCursorAdapter extends CursorAdapter {
                 break;
             case "2":
                 categoryTextView.setText(R.string.category_drink);
-                break;
-            case "0":
-                categoryTextView.setText(R.string.category_other);
                 break;
             default:
                 categoryTextView.setText(R.string.category_other);
