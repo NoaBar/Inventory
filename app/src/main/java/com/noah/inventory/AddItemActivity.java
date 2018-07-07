@@ -108,6 +108,16 @@ public class AddItemActivity extends AppCompatActivity implements
         mSupplierNameEditText = (EditText) findViewById(R.id.edit_supplier_name);
         mSupplierPhoneEditText = (EditText) findViewById(R.id.edit_supplier_phone_number);
 
+        // Setup OnTouchListeners on all the input fields, so we can determine if the user
+        // has touched or modified them. This will let us know if there are unsaved changes
+        // or not, if the user tries to leave the editor without saving.
+        mNameEditText.setOnTouchListener(mTouchListener);
+        mPriceEditText.setOnTouchListener(mTouchListener);
+        mQuantityEditText.setOnTouchListener(mTouchListener);
+        mCategorySpinner.setOnTouchListener(mTouchListener);
+        mSupplierNameEditText.setOnTouchListener(mTouchListener);
+        mSupplierPhoneEditText.setOnTouchListener(mTouchListener);
+
         setupSpinner();
     }
 
@@ -117,14 +127,14 @@ public class AddItemActivity extends AppCompatActivity implements
     private void setupSpinner() {
         // Create adapter for spinner. The list options are from the String array it will use
         // the spinner will use the default layout
-        ArrayAdapter genderSpinnerAdapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter categorySpinnerAdapter = ArrayAdapter.createFromResource(this,
                 R.array.array_category_options, android.R.layout.simple_spinner_item);
 
         // Specify dropdown layout style - simple list view with 1 item per line
-        genderSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        categorySpinnerAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
         // Apply the adapter to the spinner
-        mCategorySpinner.setAdapter(genderSpinnerAdapter);
+        mCategorySpinner.setAdapter(categorySpinnerAdapter);
 
         // Set the integer mSelected to the constant values
         mCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -198,6 +208,7 @@ public class AddItemActivity extends AppCompatActivity implements
         values.put(ItemEntry.COLUMN_ITEM_NAME, nameString);
         values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantityString);
         values.put(ItemEntry.COLUMN_ITEM_PRICE, priceString);
+        values.put (ItemEntry.COLUMN_ITEM_CATEGORY, mCategory);
         values.put(ItemEntry.COLUMN_ITEM_SUPPLIER_NAME, supplierNameString);
         values.put(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE_NUMBER, supplierPhoneString);
 
@@ -336,6 +347,7 @@ public class AddItemActivity extends AppCompatActivity implements
                 ItemEntry.COLUMN_ITEM_NAME,
                 ItemEntry.COLUMN_ITEM_PRICE,
                 ItemEntry.COLUMN_ITEM_QUANTITY,
+                ItemEntry.COLUMN_ITEM_CATEGORY,
                 ItemEntry.COLUMN_ITEM_SUPPLIER_NAME,
                 ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE_NUMBER};
 

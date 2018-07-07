@@ -75,7 +75,7 @@ public class ItemCursorAdapter extends CursorAdapter {
         nameTextView.setText(itemName);
         categoryTextView.setText(itemCategory);
         quantityTextView.setText(itemQuantity);
-        quantityTextView.setText(itemPrice);
+        priceTextView.setText(itemPrice);
     }
 
 }
