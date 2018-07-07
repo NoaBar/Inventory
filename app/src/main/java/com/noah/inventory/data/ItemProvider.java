@@ -1,4 +1,4 @@
-package com.noah.inventory.Data;
+package com.noah.inventory.data;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -7,7 +7,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import com.noah.inventory.Data.ItemContract.ItemEntry;
+import com.noah.inventory.data.ItemContract.ItemEntry;
 
 import android.util.Log;
 
@@ -139,7 +139,7 @@ public class ItemProvider extends ContentProvider {
         // sanity checking
         Integer category = values.getAsInteger(ItemEntry.COLUMN_ITEM_CATEGORY);
         if (category == null || !ItemEntry.isValidCategory(category)) {
-            throw new IllegalArgumentException("Item requires valid category");
+               throw new IllegalArgumentException("Item requires valid category");
         }
 
         // If the quantity is provided, check that it's greater than or equal to 0

@@ -1,4 +1,4 @@
-package com.noah.inventory.Data;
+package com.noah.inventory.data;
 
 import android.content.ContentResolver;
 import android.net.Uri;
@@ -11,7 +11,7 @@ public final class ItemContract {
     private ItemContract() {
     }
 
-    public static final String CONTENT_AUTHORITY = "com.noah.inventory.items";
+    public static final String CONTENT_AUTHORITY = "com.noah.inventory";
 
     /**
      * CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact

@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.noah.inventory.Data.ItemContract.ItemEntry;
+import com.noah.inventory.data.ItemContract.ItemEntry;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 

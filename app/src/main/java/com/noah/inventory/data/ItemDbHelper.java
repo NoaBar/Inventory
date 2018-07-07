@@ -1,9 +1,9 @@
-package com.noah.inventory.Data;
+package com.noah.inventory.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.noah.inventory.Data.ItemContract.ItemEntry;
+import com.noah.inventory.data.ItemContract.ItemEntry;
 
 /**
  * Database helper for Inventory app. Manages database creation and version management.

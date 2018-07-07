@@ -23,7 +23,6 @@
 
         <activity
             android:name=".AddItemActivity"
-            android:label="Add Item"
             android:parentActivityName=".CatalogActivity"
             android:theme="@style/AddItemTheme">
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -31,6 +30,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CatalogActivity" />
         </activity>
+        <provider
+            android:name=".data.ItemProvider"
+            android:authorities="com.noah.inventory"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@
     <string name="item">Item</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Label for dropdown menu option if the item's category is other-->
     <string name="category_other">Other</string>
@@ -28,5 +29,32 @@
 
     <!-- Label for overflow menu option that deletes all item data in the app-->
     <string name="action_delete_all_entries">Delete All Items</string>
+
+    <string name="addItem_activity_title_new_item">Add an Item</string>
+
+    <string name="addItem_activity_title_edit_item">Edit Item</string>
+
+    <string name="addItem_insert_item_successful">Item saved</string>
+
+    <string name="addItem_insert_item_failed">Error with saving item</string>
+
+    <string name="addItem_update_item_successful">Item updated</string>
+
+    <string name="addItem_update_item_failed">Error with updating item</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+
+    <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Discard</string>
+
+    <string name="keep_editing">Keep Editing</string>
+
+    <string name="delete_dialog_msg">Delete this item?</string>
+
+    <string name="addItem_delete_item_successful">Item deleted</string>
+
+    <string name="addItem_delete_item_failed">Error with deleting item</string>
+
 
 </resources>
