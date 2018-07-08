@@ -55,6 +55,7 @@
     <string name="addItem_delete_item_successful">Item deleted</string>
 
     <string name="addItem_delete_item_failed">Error with deleting item</string>
+    <string name="edit">Edit</string>
 
 
 </resources>

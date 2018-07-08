@@ -83,7 +83,7 @@ public class DetailsActivity extends AppCompatActivity implements
                 String detail = cursor.getString(columnIndex);
                 textViewList.get(i).setText(detail);
             }
-            
+
             // Translate the category into a readable string.
             switch (categoryTextView.getText().toString()) {
                 case "1":
