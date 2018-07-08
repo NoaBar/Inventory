@@ -20,13 +20,13 @@
         </activity>
         <activity
             android:name=".AddItemActivity"
-            android:parentActivityName=".DetailsActivity"
+            android:parentActivityName=".DetailsActivity_"
             android:theme="@style/AddItemTheme">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".DetailsActivity" />
+                android:value=".DetailsActivity_" />
         </activity>
 
         <provider
@@ -34,7 +34,7 @@
             android:authorities="com.noah.inventory"
             android:exported="false" />
 
-        <activity android:name=".DetailsActivity"
+        <activity android:name=".DetailsActivity_"
             android:label="Item Details"
             android:parentActivityName=".CatalogActivity">
         <meta-data

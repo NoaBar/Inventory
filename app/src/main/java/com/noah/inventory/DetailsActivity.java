@@ -12,12 +12,17 @@ import android.widget.TextView;
 
 import com.noah.inventory.data.ItemContract.ItemEntry;
 
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsMenu;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 
+@EActivity
+@OptionsMenu(R.menu.menu_details)
 public class DetailsActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 

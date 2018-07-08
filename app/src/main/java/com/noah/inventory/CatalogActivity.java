@@ -62,7 +62,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     @OnItemClick(R.id.list)
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
         //create new intent to go to {@link AddItemActivity}
-        Intent intent = new Intent(CatalogActivity.this, DetailsActivity.class);
+        Intent intent = new Intent(CatalogActivity.this, DetailsActivity_.class);
 
         //Form the content URI that represents the specific item that was clicked on.
         Uri currentItemUri = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, id);
