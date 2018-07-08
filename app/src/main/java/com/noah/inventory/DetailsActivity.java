@@ -1,6 +1,7 @@
 package com.noah.inventory;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -13,7 +14,9 @@ import android.widget.TextView;
 import com.noah.inventory.data.ItemContract.ItemEntry;
 
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
+import org.androidannotations.annotations.OptionsMenuItem;
 
 import java.util.List;
 
@@ -30,7 +33,8 @@ public class DetailsActivity extends AppCompatActivity implements
             R.id.details_category, R.id.details_supplier_name, R.id.details_supplier_phone_number})
     List<TextView> textViewList;
 
-    @BindView(R.id.details_category) TextView categoryTextView;
+    @BindView(R.id.details_category)
+    TextView categoryTextView;
 
     String[] projection = {
             ItemEntry.COLUMN_ITEM_NAME,
@@ -61,6 +65,17 @@ public class DetailsActivity extends AppCompatActivity implements
         getLoaderManager().initLoader(EXISTING_ITEM_LOADER, null, this);
     }
 
+    @OptionsItem(R.id.action_edit)
+    public  void edit(){
+        //create new intent to go to {@link AddItemActivity}
+        Intent intent = new Intent(this, AddItemActivity.class);
+
+        //Set the URI on the data field of the intent
+        intent.setData(mCurrentItemUri);
+
+        //Launch the {@link EditorActivity} to display the data for the current item.
+        startActivity(intent);
+    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
