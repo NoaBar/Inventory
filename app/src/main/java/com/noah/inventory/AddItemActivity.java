@@ -32,7 +32,7 @@ public class AddItemActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
     /**
-     * Identifier for the pet data loader
+     * Identifier for the item data loader
      */
     private static final int EXISTING_ITEM_LOADER = 0;
 
@@ -99,7 +99,7 @@ public class AddItemActivity extends AppCompatActivity implements
             // Otherwise this is an existing item, so change app bar to say "Edit item"
             setTitle(getString(R.string.addItem_activity_title_edit_item));
 
-            // Initialize a loader to read the pet data from the database
+            // Initialize a loader to read the item data from the database
             // and display the current values in the editor
             getLoaderManager().initLoader(EXISTING_ITEM_LOADER, null, this);
         }
@@ -116,6 +116,8 @@ public class AddItemActivity extends AppCompatActivity implements
 
         setupSpinner();
     }
+
+
 
     /**
      * Setup the dropdown spinner that allows the user to select the category of the item.
@@ -258,7 +260,6 @@ public class AddItemActivity extends AppCompatActivity implements
         return true;
     }
 
-
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
@@ -336,8 +337,8 @@ public class AddItemActivity extends AppCompatActivity implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        // Since the editor shows all pet attributes, define a projection that contains
-        // all columns from the pet table
+        // Since the editor shows all item attributes, define a projection that contains
+        // all columns from the item table
         String[] projection = {
                 ItemEntry._ID,
                 ItemEntry.COLUMN_ITEM_NAME,

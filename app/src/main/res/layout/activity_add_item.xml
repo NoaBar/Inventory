@@ -87,7 +87,6 @@
             android:paddingLeft="4dp"
             android:orientation="vertical">
 
-            <!-- Weight field -->
             <EditText
                 android:id="@+id/edit_supplier_name"
                 android:hint="@string/name"

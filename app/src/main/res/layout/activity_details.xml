@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_margin"
+    tools:context=".AddItemActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/item" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/details_name"
+                style="@style/AddItemFieldStyle"
+                android:hint="@string/name"
+                android:inputType="textCapWords" />
+
+            <TextView
+                android:id="@+id/details_price"
+                style="@style/AddItemFieldStyle"
+                android:hint="@string/price"
+                android:inputType="textCapWords" />
+
+            <TextView
+                android:id="@+id/details_quantity"
+                style="@style/AddItemFieldStyle"
+                android:hint="@string/quantity"
+                android:inputType="number" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/category" />
+
+            <TextView
+                android:paddingStart="55dp"
+                android:id="@+id/details_category"
+                style="@style/AddItemFieldStyle"
+                android:hint="@string/category" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/supplier" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/details_supplier_name"
+                style="@style/AddItemFieldStyle"
+                android:hint="@string/name"
+                android:inputType="text" />
+
+            <TextView
+                android:id="@+id/details_supplier_phone_number"
+                style="@style/AddItemFieldStyle"
+                android:hint="@string/phone_number"
+                android:inputType="phone" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

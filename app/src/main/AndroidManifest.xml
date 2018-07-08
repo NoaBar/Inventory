@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.noah.inventory">
 
@@ -16,24 +14,35 @@
             android:label="Items List">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".AddItemActivity"
-            android:parentActivityName=".CatalogActivity"
+            android:parentActivityName=".AddItemActivity"
             android:theme="@style/AddItemTheme">
+
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CatalogActivity" />
         </activity>
+
         <provider
             android:name=".data.ItemProvider"
             android:authorities="com.noah.inventory"
             android:exported="false" />
+
+        <activity android:name=".DetailsActivity"
+            android:label="Item Details"
+            android:parentActivityName=".CatalogActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".CatalogActivity" />
+
+
+        </activity>
     </application>
 
 </manifest>
