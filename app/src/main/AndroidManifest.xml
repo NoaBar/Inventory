@@ -20,8 +20,7 @@
         </activity>
         <activity
             android:name=".AddItemActivity"
-            android:parentActivityName=".CatalogActivity"
-            android:theme="@style/AddItemTheme">
+            android:parentActivityName=".CatalogActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
