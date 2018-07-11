@@ -92,7 +92,7 @@ public class AddItemActivity extends AppCompatActivity implements
         mCurrentItemUri = intent.getData();
 
         // If the intent DOES NOT contain an item content URI, then we know that we are
-        // creating a new pet.
+        // creating a new item.
         if (mCurrentItemUri == null) {
             // This is a new item, so change the app bar to say "Add an item"
             setTitle(getString(R.string.addItem_activity_title_new_item));
@@ -220,7 +220,7 @@ public class AddItemActivity extends AppCompatActivity implements
         }
         values.put(ItemEntry.COLUMN_ITEM_PRICE, price);
 
-        // Determine if this is a new or existing item by checking if mCurrentPetUri is null or not
+        // Determine if this is a new or existing item by checking if mCurrentitemUri is null or not
         if (mCurrentItemUri == null) {
             // This is a NEW item, so insert a new item into the provider,
             // returning the content URI for the new item.
@@ -280,7 +280,7 @@ public class AddItemActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-                // Save pet to database
+                // Save item to database
                 saveItem();
                 return true;
             // Respond to a click on the "Delete" menu option
@@ -437,7 +437,7 @@ public class AddItemActivity extends AppCompatActivity implements
         builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Keep editing" button, so dismiss the dialog
-                // and continue editing the pet.
+                // and continue editing the item.
                 if (dialog != null) {
                     dialog.dismiss();
                 }
@@ -459,14 +459,14 @@ public class AddItemActivity extends AppCompatActivity implements
         builder.setMessage(R.string.delete_dialog_msg);
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the pet.
+                // User clicked the "Delete" button, so delete the item.
                 deleteItem();
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the pet.
+                // and continue editing the item.
                 if (dialog != null) {
                     dialog.dismiss();
                 }

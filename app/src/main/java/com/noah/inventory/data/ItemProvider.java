@@ -78,7 +78,7 @@ public class ItemProvider extends ContentProvider {
         int match = sUriMatcher.match(uri);
         switch (match) {
             case ITEMS:
-                // For the ITEMS code, query the pets table directly with the given
+                // For the ITEMS code, query the items table directly with the given
                 // projection, selection, selection arguments, and sort order.
                 cursor = database.query(ItemContract.ItemEntry.TABLE_NAME,
                         projection,
@@ -174,25 +174,25 @@ public class ItemProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         switch (match) {
             case ITEMS:
-                return updatePet(uri, contentValues, selection, selectionArgs);
+                return updateitem(uri, contentValues, selection, selectionArgs);
             case ITEM_ID:
                 // For the ITEM_ID code, extract out the ID from the URI,
                 // so we know which row to update. Selection will be "_id=?" and selection
                 // arguments will be a String array containing the actual ID.
                 selection = ItemEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
-                return updatePet(uri, contentValues, selection, selectionArgs);
+                return updateitem(uri, contentValues, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("Update is not supported for " + uri);
         }
     }
 
     /**
-     * Update pets in the database with the given content values. Apply the changes to the rows
-     * specified in the selection and selection arguments (which could be 0 or 1 or more pets).
+     * Update items in the database with the given content values. Apply the changes to the rows
+     * specified in the selection and selection arguments (which could be 0 or 1 or more items).
      * Return the number of rows that were successfully updated.
      */
-    private int updatePet(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+    private int updateitem(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         // If the {@link ItemEntry#COLUMN_ITEM_NAME} key is present,
         // check that the name value is not null.
         if (values.containsKey(ItemEntry.COLUMN_ITEM_NAME)) {

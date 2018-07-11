@@ -6,8 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal"
     android:padding="15dp">
 
     <LinearLayout
@@ -39,40 +39,49 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:layout_gravity="center">
-
-        <TextView
-            android:id="@+id/price_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif"
-            android:text="@string/price_title"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/editorColorPrimaryDark" />
-
-        <TextView
-            android:id="@+id/quantity_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="sans-serif"
-            android:text="@string/quantity_title_detail"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="@color/editorColorPrimaryDark"
-            tools:ignore="NestedWeights" />
-
-
-    </LinearLayout>
+        android:layout_gravity="center"
+        android:gravity="end"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:layout_gravity="center">
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/price_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:text="@string/price_title"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/editorColorPrimaryDark" />
+
+            <TextView
+                android:id="@+id/quantity_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif"
+                android:text="@string/quantity_title_detail"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:textColor="@color/editorColorPrimaryDark"
+                tools:ignore="NestedWeights" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/price_value"
@@ -82,8 +91,8 @@
                 android:fontFamily="sans-serif"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:textColor="@color/editorColorPrimaryDark"
-                tools:text="Y"
-                tools:ignore="NestedWeights" />
+                tools:ignore="NestedWeights"
+                tools:text="Y" />
 
             <TextView
                 android:id="@+id/quantity_value"
@@ -96,6 +105,7 @@
 
 
         </LinearLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/sale_button"
