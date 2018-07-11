@@ -198,7 +198,7 @@ public class ItemProvider extends ContentProvider {
         if (values.containsKey(ItemEntry.COLUMN_ITEM_NAME)) {
             String name = values.getAsString(ItemEntry.COLUMN_ITEM_NAME);
             if (name == null) {
-                throw new IllegalArgumentException("Pet requires a name");
+                throw new IllegalArgumentException("Item requires a name");
             }
         }
 
