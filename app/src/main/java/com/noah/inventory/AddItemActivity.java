@@ -22,7 +22,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import com.noah.inventory.data.ItemContract.ItemEntry;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -42,12 +44,18 @@ public class AddItemActivity extends AppCompatActivity implements
     /**
      * Fields to enter the item info
      */
-    @BindView(R.id.edit_item_name) EditText mNameEditText;
-    @BindView(R.id.edit_item_price) EditText mPriceEditText;
-    @BindView(R.id.edit_item_quantity) EditText mQuantityEditText;
-    @BindView(R.id.spinner_category) Spinner mCategorySpinner;
-    @BindView(R.id.edit_supplier_name) EditText mSupplierNameEditText;
-    @BindView(R.id.edit_supplier_phone_number) EditText mSupplierPhoneEditText;
+    @BindView(R.id.edit_item_name)
+    EditText mNameEditText;
+    @BindView(R.id.edit_item_price)
+    EditText mPriceEditText;
+    @BindView(R.id.edit_item_quantity)
+    EditText mQuantityEditText;
+    @BindView(R.id.spinner_category)
+    Spinner mCategorySpinner;
+    @BindView(R.id.edit_supplier_name)
+    EditText mSupplierNameEditText;
+    @BindView(R.id.edit_supplier_phone_number)
+    EditText mSupplierPhoneEditText;
 
     /**
      * Category of the item. The possible values are:
@@ -114,7 +122,6 @@ public class AddItemActivity extends AppCompatActivity implements
 
         setupSpinner();
     }
-
 
 
     /**
@@ -287,7 +294,7 @@ public class AddItemActivity extends AppCompatActivity implements
             case android.R.id.home:
                 // If the item hasn't changed, continue with navigating up to parent activity.
                 if (!mItemHasChanged) {
-                    NavUtils.navigateUpFromSameTask(AddItemActivity.this);
+                    finish();
                     return true;
                 }
 
@@ -476,7 +483,7 @@ public class AddItemActivity extends AppCompatActivity implements
     /**
      * Perform the deletion of the item in the database.
      */
-    private void deleteItem() {
+    private boolean deleteItem() {
         if (mCurrentItemUri != null) {
             int rowsDeleted = getContentResolver().delete(mCurrentItemUri, null, null);
 
@@ -488,6 +495,7 @@ public class AddItemActivity extends AppCompatActivity implements
                         Toast.LENGTH_SHORT).show();
             }
         }
-        finish();
+        NavUtils.navigateUpFromSameTask(AddItemActivity.this);
+        return true;
     }
 }
