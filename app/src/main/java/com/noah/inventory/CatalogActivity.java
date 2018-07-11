@@ -1,6 +1,5 @@
 package com.noah.inventory;
 
-import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.CursorLoader;

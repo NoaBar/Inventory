@@ -22,9 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.noah.inventory.data.ItemContract.ItemEntry;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -170,7 +168,6 @@ public class AddItemActivity extends AppCompatActivity implements
                 });
         alertDialog.show();
     }
-
 
     /**
      * Get user input from editor and save new item into database.
@@ -448,7 +445,7 @@ public class AddItemActivity extends AppCompatActivity implements
     }
 
     /**
-     * Prompt the user to confirm that they want to delete this pet.
+     * Prompt the user to confirm that they want to delete this item.
      */
     private void showDeleteConfirmationDialog() {
         // Create an AlertDialog.Builder and set the message, and click listeners
@@ -477,7 +474,7 @@ public class AddItemActivity extends AppCompatActivity implements
     }
 
     /**
-     * Perform the deletion of the pet in the database.
+     * Perform the deletion of the item in the database.
      */
     private void deleteItem() {
         if (mCurrentItemUri != null) {

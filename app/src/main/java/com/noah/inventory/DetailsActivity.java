@@ -1,8 +1,9 @@
 package com.noah.inventory;
 
+import android.app.AlertDialog;
 import android.app.LoaderManager;
-import android.content.ContentUris;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -10,13 +11,13 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.noah.inventory.data.ItemContract.ItemEntry;
 
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OptionsItem;
 import org.androidannotations.annotations.OptionsMenu;
-import org.androidannotations.annotations.OptionsMenuItem;
 
 import java.util.List;
 
@@ -66,7 +67,7 @@ public class DetailsActivity extends AppCompatActivity implements
     }
 
     @OptionsItem(R.id.action_edit)
-    public  void edit(){
+    public void edit() {
         //create new intent to go to {@link AddItemActivity}
         Intent intent = new Intent(this, AddItemActivity.class);
 
@@ -75,6 +76,11 @@ public class DetailsActivity extends AppCompatActivity implements
 
         //Launch the {@link EditorActivity} to display the data for the current item.
         startActivity(intent);
+    }
+
+    @OptionsItem(R.id.action_delete)
+    public void deleteItemDetails() {
+        showDeleteConfirmationDialog();
     }
 
     @Override
@@ -125,5 +131,52 @@ public class DetailsActivity extends AppCompatActivity implements
         for (TextView detail : textViewList) {
             detail.setText("");
         }
+    }
+
+    /**
+     * Prompt the user to confirm that they want to delete this item.
+     */
+    private void showDeleteConfirmationDialog() {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_msg);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Delete" button, so delete the pet.
+                deleteItem();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Cancel" button, so dismiss the dialog
+                // and continue editing the pet.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * Perform the deletion of the item in the database.
+     */
+    private void deleteItem() {
+        if (mCurrentItemUri != null) {
+            int rowsDeleted = getContentResolver().delete(mCurrentItemUri, null, null);
+
+            if (rowsDeleted == 0) {
+                Toast.makeText(this, getString(R.string.addItem_delete_item_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, getString(R.string.addItem_delete_item_successful),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+        finish();
     }
 }
