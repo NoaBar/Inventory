@@ -22,9 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.noah.inventory.data.ItemContract.ItemEntry;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -205,7 +203,7 @@ public class AddItemActivity extends AppCompatActivity implements
             return;
         }
         // Create a ContentValues object where column names are the keys,
-        // and pet attributes from the editor are the values.
+        // and item attributes from the editor are the values.
         ContentValues values = new ContentValues();
         values.put(ItemEntry.COLUMN_ITEM_NAME, nameString);
         values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantityString);
