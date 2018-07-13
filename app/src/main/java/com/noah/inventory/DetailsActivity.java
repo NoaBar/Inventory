@@ -1,7 +1,11 @@
 package com.noah.inventory;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +14,8 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +42,19 @@ public class DetailsActivity extends AppCompatActivity implements
 
     @BindView(R.id.details_category)
     TextView categoryTextView;
+
+    @BindView(R.id.details_quantity)
+    TextView quantityTextView;
+
+    //@BindViews({R.id.decrease_button, R.id.increase_button, R.id.call_button})
+    //List<Button>buttonsList;
+
+    @BindView(R.id.decrease_button)
+    Button decreaseButton;
+    @BindView(R.id.increase_button)
+    Button increaseButton;
+    @BindView(R.id.call_button)
+    Button callButton;
 
     String[] projection = {
             ItemEntry.COLUMN_ITEM_NAME,
@@ -122,6 +141,69 @@ public class DetailsActivity extends AppCompatActivity implements
                     categoryTextView.setText(R.string.category_other);
                     break;
             }
+
+            int idColumnIndex = cursor.getColumnIndex(ItemEntry._ID);
+            final int itemId = cursor.getInt(idColumnIndex);
+
+            increaseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //query 2 specific columns in the item table
+                    String[] projection = {
+                            ItemEntry._ID,
+                            ItemEntry.COLUMN_ITEM_QUANTITY};
+                    Uri currentItemUri = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, itemId);
+                    Cursor cursor = getContentResolver().query(currentItemUri, projection, null, null, null);
+
+                    // if value is greater than 0, decrease by 1.
+                    if (cursor.moveToFirst()) {
+                        final int quantityColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_QUANTITY);
+                        int quantityInt = cursor.getInt(quantityColumnIndex);
+
+                        quantityInt++;
+
+                        //updates the value and put the new value in the database.
+                        ContentValues values = new ContentValues();
+                        values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantityInt);
+                        getContentResolver().update(currentItemUri, values, null, null);
+
+                        //updates the UI WITH THE NEW quantity value.
+                        String quantityString = String.valueOf(quantityInt);
+                        quantityTextView.setText(quantityString);
+                    }
+                }
+            });
+            
+            decreaseButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //query 2 specific columns in the item table
+                    String[] projection = {
+                            ItemEntry._ID,
+                            ItemEntry.COLUMN_ITEM_QUANTITY};
+                    Uri currentItemUri = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, itemId);
+                    Cursor cursor = getContentResolver().query(currentItemUri, projection, null, null, null);
+
+                    // if value is greater than 0, decrease by 1.
+                    if (cursor.moveToFirst()) {
+                        final int quantityColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_QUANTITY);
+                        int quantityInt = cursor.getInt(quantityColumnIndex);
+                        if (quantityInt == 0) {
+                            return;
+                        }
+                        quantityInt--;
+
+                        //updates the value and put the new value in the database.
+                        ContentValues values = new ContentValues();
+                        values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantityInt);
+                        getContentResolver().update(currentItemUri, values, null, null);
+
+                        //updates the UI WITH THE NEW quantity value.
+                        String quantityString = String.valueOf(quantityInt);
+                        quantityTextView.setText(quantityString);
+                    }
+                }
+            });
         }
     }
 
