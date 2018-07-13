@@ -148,10 +148,6 @@ public class DetailsActivity extends AppCompatActivity implements
             increaseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //query 2 specific columns in the item table
-                    String[] projection = {
-                            ItemEntry._ID,
-                            ItemEntry.COLUMN_ITEM_QUANTITY};
                     Uri currentItemUri = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, itemId);
                     Cursor cursor = getContentResolver().query(currentItemUri, projection, null, null, null);
 
@@ -173,14 +169,10 @@ public class DetailsActivity extends AppCompatActivity implements
                     }
                 }
             });
-            
+
             decreaseButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //query 2 specific columns in the item table
-                    String[] projection = {
-                            ItemEntry._ID,
-                            ItemEntry.COLUMN_ITEM_QUANTITY};
                     Uri currentItemUri = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, itemId);
                     Cursor cursor = getContentResolver().query(currentItemUri, projection, null, null, null);
 

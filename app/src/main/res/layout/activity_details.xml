@@ -58,8 +58,9 @@
         <TextView
             android:id="@+id/details_quantity"
             style="@style/DetailsFieldStyle"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_weight="0"
+            android:gravity="center"
             android:hint="@string/quantity" />
 
         <Button
