@@ -7,54 +7,67 @@
     android:padding="@dimen/activity_margin"
     tools:context=".AddItemActivity">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <TextView
+            style="@style/namePriceQuantityStyle"
+            android:text="@string/item" />
+
+        <TextView
+            android:id="@+id/details_name"
+            style="@style/DetailsFieldStyle"
+            android:hint="@string/name" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/namePriceQuantityStyle"
+            android:text="@string/price" />
+
+        <TextView
+            android:id="@+id/details_price"
+            style="@style/DetailsFieldStyle"
+            android:hint="@string/price" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/namePriceQuantityStyle"
+            android:text="@string/quantity" />
+
+        <Button
+            android:id="@+id/decrease_button"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/details_quantity"
+            style="@style/DetailsFieldStyle"
             android:layout_width="wrap_content"
+            android:layout_weight="0"
+            android:hint="@string/quantity" />
+
+        <Button
+            android:id="@+id/increase_button"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                style="@style/namePriceQuantityStyle"
-                android:text="@string/item" />
-
-            <TextView
-                style="@style/namePriceQuantityStyle"
-                android:layout_width="wrap_content"
-                android:text="@string/price" />
-
-            <TextView
-                style="@style/namePriceQuantityStyle"
-                android:text="@string/quantity" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/details_name"
-                style="@style/DetailsFieldStyle"
-                android:hint="@string/name" />
-
-            <TextView
-                android:id="@+id/details_price"
-                style="@style/DetailsFieldStyle"
-                android:hint="@string/price" />
-
-            <TextView
-                android:id="@+id/details_quantity"
-                style="@style/DetailsFieldStyle"
-                android:hint="@string/quantity" />
-
-
-        </LinearLayout>
+            android:layout_marginStart="10dp"
+            android:text="+" />
     </LinearLayout>
 
     <LinearLayout
@@ -101,6 +114,12 @@
                 style="@style/AddItemFieldStyle"
                 android:autoLink="phone"
                 android:hint="@string/phone_number" />
+
+            <Button
+                android:id="@+id/call_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Call" />
 
         </LinearLayout>
     </LinearLayout>

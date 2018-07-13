@@ -44,20 +44,19 @@
     </style>
 
     <style name="DetailsFieldStyle">
-        <item name="android:layout_height">30dp</item>
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">200dp</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textColorHint">@color/brightPink</item>
-        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_gravity">center_vertical</item>
         <item name="android:textAppearance">?android:textAppearanceMedium</item>
     </style>
 
 
     <!-- Style for an EditText field in the AddItem -->
     <style name="namePriceQuantityStyle">
-        <item name="android:layout_height">32dp</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_weight">2</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">100dp</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:fontFamily">sans-serif-medium</item>
