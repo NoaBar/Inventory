@@ -97,10 +97,7 @@ public final class ItemContract {
          * or {@link #ITEM_CATEGORY_DRINK}.
          */
         public static boolean isValidCategory(int category) {
-            if (category == ITEM_CATEGORY_OTHER || category == ITEM_CATEGORY_FOOD || category == ITEM_CATEGORY_DRINK) {
-                return true;
-            }
-            return false;
+            return category == ITEM_CATEGORY_OTHER || category == ITEM_CATEGORY_FOOD || category == ITEM_CATEGORY_DRINK;
         }
 
         /**
