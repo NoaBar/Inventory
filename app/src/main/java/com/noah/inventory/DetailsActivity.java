@@ -30,31 +30,23 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 @EActivity
 @OptionsMenu(R.menu.menu_details)
 public class DetailsActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    @BindViews({R.id.details_name, R.id.details_price, R.id.details_quantity,
-            R.id.details_category, R.id.details_supplier_name, R.id.details_supplier_phone_number})
+    //The list of textViews is in the same order as the projection array.
+    // That's how we know what should the text view contain.
+    @BindViews({R.id.details_name,
+            R.id.details_price,
+            R.id.details_quantity,
+            R.id.details_category,
+            R.id.details_supplier_name,
+            R.id.details_supplier_phone_number})
     List<TextView> textViewList;
-
-    @BindView(R.id.details_category)
-    TextView categoryTextView;
-
-    @BindView(R.id.details_quantity)
-    TextView quantityTextView;
-
-    //@BindViews({R.id.decrease_button, R.id.increase_button, R.id.call_button})
-    //List<Button>buttonsList;
-
-    @BindView(R.id.decrease_button)
-    Button decreaseButton;
-    @BindView(R.id.increase_button)
-    Button increaseButton;
-    @BindView(R.id.call_button)
-    Button callButton;
 
     String[] projection = {
             ItemEntry.COLUMN_ITEM_NAME,
@@ -66,9 +58,88 @@ public class DetailsActivity extends AppCompatActivity implements
             ItemEntry._ID
     };
 
-    private Uri mCurrentItemUri;
+    @BindView(R.id.details_category)
+    TextView categoryTextView;
+
+    @BindView(R.id.details_quantity)
+    TextView quantityTextView;
+
+    @BindView(R.id.decrease_button)
+    Button decreaseButton;
+    @BindView(R.id.increase_button)
+    Button increaseButton;
+    @BindView(R.id.call_button)
+    Button callButton;
+
+    public Uri mCurrentItemUri;
 
     private static final int EXISTING_ITEM_LOADER = 0;
+
+
+    @OnClick(R.id.increase_button)
+    public void onIncrease(View v) {
+        Cursor cursor = getContentResolver().query(mCurrentItemUri, projection, null, null, null);
+
+        // if value is greater than 0, decrease by 1.
+        if (cursor.moveToFirst()) {
+            final int quantityColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_QUANTITY);
+            int quantityInt = cursor.getInt(quantityColumnIndex);
+
+            quantityInt++;
+
+            //updates the value and put the new value in the database.
+            ContentValues values = new ContentValues();
+            values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantityInt);
+            getContentResolver().update(mCurrentItemUri, values, null, null);
+
+            //updates the UI WITH THE NEW quantity value.
+            String quantityString = String.valueOf(quantityInt);
+            quantityTextView.setText(quantityString);
+        }
+    }
+
+
+    @OnClick(R.id.decrease_button)
+    public void onDecrease(View v) {
+        Cursor cursor = getContentResolver().query(mCurrentItemUri, projection, null, null, null);
+
+        // if value is greater than 0, decrease by 1.
+        if (cursor.moveToFirst()) {
+            final int quantityColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_QUANTITY);
+            int quantityInt = cursor.getInt(quantityColumnIndex);
+            if (quantityInt == 0) {
+                return;
+            }
+            quantityInt--;
+
+            //updates the value and put the new value in the database.
+            ContentValues values = new ContentValues();
+            values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantityInt);
+            getContentResolver().update(mCurrentItemUri, values, null, null);
+
+            //updates the UI WITH THE NEW quantity value.
+            String quantityString = String.valueOf(quantityInt);
+            quantityTextView.setText(quantityString);
+        }
+    }
+
+
+    /**@OnClick(R.id.call_button)
+    public void onCall(View call) {
+        Cursor cursor = getContentResolver().query(mCurrentItemUri, projection,
+                null, null, null);
+
+        if (cursor.moveToFirst()) {
+            final int supplierPhone = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE_NUMBER);
+            int supplierPhoneString = cursor.getInt(supplierPhone);
+        }
+
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse(uri));
+        startActivity(intent);
+    }
+    **/
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,61 +212,6 @@ public class DetailsActivity extends AppCompatActivity implements
                     categoryTextView.setText(R.string.category_other);
                     break;
             }
-
-            int idColumnIndex = cursor.getColumnIndex(ItemEntry._ID);
-            final int itemId = cursor.getInt(idColumnIndex);
-
-            increaseButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Uri currentItemUri = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, itemId);
-                    Cursor cursor = getContentResolver().query(currentItemUri, projection, null, null, null);
-
-                    // if value is greater than 0, decrease by 1.
-                    if (cursor.moveToFirst()) {
-                        final int quantityColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_QUANTITY);
-                        int quantityInt = cursor.getInt(quantityColumnIndex);
-
-                        quantityInt++;
-
-                        //updates the value and put the new value in the database.
-                        ContentValues values = new ContentValues();
-                        values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantityInt);
-                        getContentResolver().update(currentItemUri, values, null, null);
-
-                        //updates the UI WITH THE NEW quantity value.
-                        String quantityString = String.valueOf(quantityInt);
-                        quantityTextView.setText(quantityString);
-                    }
-                }
-            });
-
-            decreaseButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Uri currentItemUri = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, itemId);
-                    Cursor cursor = getContentResolver().query(currentItemUri, projection, null, null, null);
-
-                    // if value is greater than 0, decrease by 1.
-                    if (cursor.moveToFirst()) {
-                        final int quantityColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_QUANTITY);
-                        int quantityInt = cursor.getInt(quantityColumnIndex);
-                        if (quantityInt == 0) {
-                            return;
-                        }
-                        quantityInt--;
-
-                        //updates the value and put the new value in the database.
-                        ContentValues values = new ContentValues();
-                        values.put(ItemEntry.COLUMN_ITEM_QUANTITY, quantityInt);
-                        getContentResolver().update(currentItemUri, values, null, null);
-
-                        //updates the UI WITH THE NEW quantity value.
-                        String quantityString = String.valueOf(quantityInt);
-                        quantityTextView.setText(quantityString);
-                    }
-                }
-            });
         }
     }
 
