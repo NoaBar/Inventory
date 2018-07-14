@@ -160,20 +160,6 @@ public class AddItemActivity extends AppCompatActivity implements
         });
     }
 
-    public void showNoNameAlert() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(AddItemActivity.this);
-        alertDialog.setTitle("Alert");
-        alertDialog.setMessage("Please enter item's name");
-        alertDialog.setPositiveButton("OK",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss(); // dismiss AlertDialog
-                    }
-                });
-        alertDialog.show();
-    }
-
     /**
      * Get user input from editor and save new item into database.
      */
@@ -198,10 +184,13 @@ public class AddItemActivity extends AppCompatActivity implements
             return;
         }
 
-        if (TextUtils.isEmpty(nameString)) {
-            showNoNameAlert();
+        if (TextUtils.isEmpty(nameString)|| TextUtils.isEmpty(priceString) ||
+                TextUtils.isEmpty(quantityString)|| TextUtils.isEmpty(supplierNameString)
+                || TextUtils.isEmpty(supplierPhoneString)){
+            Toast.makeText(this, "Please fill all the fields.", Toast.LENGTH_LONG).show();
             return;
         }
+
         // Create a ContentValues object where column names are the keys,
         // and item attributes from the editor are the values.
         ContentValues values = new ContentValues();
