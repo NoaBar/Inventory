@@ -109,8 +109,8 @@
 
     <Button
         android:id="@+id/sale_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="55dp"
         android:layout_weight="1"
         android:text="@string/sale" />
 

@@ -52,39 +52,40 @@
             android:id="@+id/decrease_button"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:text="-"
-            android:layout_marginEnd="10dp"/>
+            android:text="-" />
 
         <TextView
             android:id="@+id/details_quantity"
-            style="@style/DetailsFieldStyle"
-            android:layout_width="70dp"
-            android:layout_weight="0"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:fontFamily="sans-serif-light"
+            android:textColorHint="@color/brightPink"
+            android:textAppearance="?android:textAppearanceMedium"
             android:gravity="center"
-            android:hint="@string/quantity" />
+            android:hint="@string/quantity"/>
 
         <Button
             android:id="@+id/increase_button"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
             android:text="+" />
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
-            style="@style/CategoryStyle"
+            style="@style/namePriceQuantityStyle"
             android:text="@string/category" />
 
         <TextView
             android:id="@+id/details_category"
-            style="@style/AddItemFieldStyle"
+            style="@style/DetailsFieldStyle"
             android:hint="@string/category"
-            android:paddingStart="47dp" />
+          />
 
     </LinearLayout>
 
@@ -95,24 +96,26 @@
         android:paddingTop="25dp">
 
         <TextView
-            style="@style/CategoryStyle"
-            android:text="@string/supplier" />
+            style="@style/namePriceQuantityStyle"
+            android:layout_height="match_parent"
+            android:text="@string/supplier"
+            android:paddingBottom="25dp"
+            android:gravity="center_vertical"/>
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="-5dp"
-            android:layout_weight="2"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center_vertical">
 
             <TextView
                 android:id="@+id/details_supplier_name"
-                style="@style/AddItemFieldStyle"
+                style="@style/DetailsFieldStyle"
                 android:hint="@string/name" />
 
             <TextView
                 android:id="@+id/details_supplier_phone_number"
-                style="@style/AddItemFieldStyle"
+                style="@style/DetailsFieldStyle"
                 android:autoLink="phone"
                 android:hint="@string/phone_number" />
 
@@ -120,7 +123,8 @@
                 android:id="@+id/call_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Call" />
+                android:text="Call"
+                android:layout_margin="10dp"/>
 
         </LinearLayout>
     </LinearLayout>
