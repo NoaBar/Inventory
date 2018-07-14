@@ -22,7 +22,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 import com.noah.inventory.data.ItemContract.ItemEntry;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -184,9 +186,9 @@ public class AddItemActivity extends AppCompatActivity implements
             return;
         }
 
-        if (TextUtils.isEmpty(nameString)|| TextUtils.isEmpty(priceString) ||
-                TextUtils.isEmpty(quantityString)|| TextUtils.isEmpty(supplierNameString)
-                || TextUtils.isEmpty(supplierPhoneString)){
+        if (TextUtils.isEmpty(nameString) || TextUtils.isEmpty(priceString) ||
+                TextUtils.isEmpty(quantityString) || TextUtils.isEmpty(supplierNameString)
+                || TextUtils.isEmpty(supplierPhoneString)) {
             Toast.makeText(this, "Please fill all the fields.", Toast.LENGTH_LONG).show();
             return;
         }
