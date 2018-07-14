@@ -1,5 +1,6 @@
 package com.noah.inventory;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
@@ -10,8 +11,10 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -64,17 +67,11 @@ public class DetailsActivity extends AppCompatActivity implements
     @BindView(R.id.details_quantity)
     TextView quantityTextView;
 
-    @BindView(R.id.decrease_button)
-    Button decreaseButton;
-    @BindView(R.id.increase_button)
-    Button increaseButton;
-    @BindView(R.id.call_button)
-    Button callButton;
-
     public Uri mCurrentItemUri;
 
     private static final int EXISTING_ITEM_LOADER = 0;
 
+    public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 5;
 
     @OnClick(R.id.increase_button)
     public void onIncrease(View v) {
@@ -124,21 +121,67 @@ public class DetailsActivity extends AppCompatActivity implements
     }
 
 
-    /**@OnClick(R.id.call_button)
+    @OnClick(R.id.call_button)
     public void onCall(View call) {
         Cursor cursor = getContentResolver().query(mCurrentItemUri, projection,
                 null, null, null);
 
         if (cursor.moveToFirst()) {
             final int supplierPhone = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE_NUMBER);
-            int supplierPhoneString = cursor.getInt(supplierPhone);
-        }
+            String supplierPhoneString = cursor.getString(supplierPhone);
 
-        Intent intent = new Intent(Intent.ACTION_CALL);
-        intent.setData(Uri.parse(uri));
-        startActivity(intent);
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:" + supplierPhoneString));
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                // Permission is not granted
+                // Should we show an explanation?
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.CALL_PHONE)) {
+                    // Show an explanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+                } else {
+                    // No explanation needed; request the permission
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.CALL_PHONE},
+                            MY_PERMISSIONS_REQUEST_CALL_PHONE);
+
+                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                    // app-defined int constant. The callback method gets the
+                    // result of the request.
+                }
+            } else {
+                // Permission has already been granted
+                startActivity(intent);
+            }
+        }
     }
-    **/
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CALL_PHONE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted.
+                    Cursor cursor = getContentResolver().query(mCurrentItemUri, projection,
+                            null, null, null);
+
+                    if (cursor.moveToFirst()) {
+                        final int supplierPhone = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE_NUMBER);
+                        String supplierPhoneString = cursor.getString(supplierPhone);
+
+                        Intent intent = new Intent(Intent.ACTION_CALL);
+                        intent.setData(Uri.parse("tel:" + supplierPhoneString));
+                        startActivity(intent);
+                    }
+                }
+                return;
+            }
+        }
+    }
 
 
     @Override
