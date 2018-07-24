@@ -56,6 +56,9 @@
 
     <string name="addItem_delete_item_failed">Error with deleting item</string>
     <string name="edit">Edit</string>
+    <string name="increase">+</string>
+    <string name="decrease">-</string>
+    <string name="call">Call</string>
 
 
 </resources>
