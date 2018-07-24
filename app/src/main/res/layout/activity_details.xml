@@ -17,8 +17,6 @@
         style="@style/DetailsFieldStyle"
         android:layout_width="162dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:hint="@string/name"
         android:textAlignment="center"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView"
@@ -43,7 +41,6 @@
         style="@style/DetailsFieldStyle"
         android:layout_width="149dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:hint="@string/price"
         android:textAlignment="center"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
@@ -67,7 +64,6 @@
         android:id="@+id/decrease_button"
         android:layout_width="47dp"
         android:layout_height="38dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="@string/decrease"
         app:layout_constraintBaseline_toBaselineOf="@+id/details_quantity"
@@ -107,7 +103,6 @@
         android:id="@+id/increase_button"
         android:layout_width="47dp"
         android:layout_height="38dp"
-        android:layout_marginStart="8dp"
         android:text="@string/increase"
         app:layout_constraintBaseline_toBaselineOf="@+id/details_quantity"
         app:layout_constraintEnd_toEndOf="parent"
@@ -130,13 +125,11 @@
         android:id="@+id/details_category"
         style="@style/DetailsFieldStyle"
         android:layout_width="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:hint="@string/category"
         android:textAlignment="center"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
-        app:layout_constraintEnd_toEndOf="@+id/details_supplier_name"
-        app:layout_constraintStart_toStartOf="@+id/details_supplier_name" />
+        app:layout_constraintEnd_toEndOf="@+id/increase_button"
+        app:layout_constraintStart_toStartOf="@+id/decrease_button" />
 
 
     <TextView
@@ -164,21 +157,17 @@
         style="@style/DetailsFieldStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:hint="@string/name"
         android:textAlignment="center"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/barrier2" />
+        app:layout_constraintEnd_toEndOf="@+id/details_category"
+        app:layout_constraintStart_toStartOf="@+id/details_category" />
 
     <TextView
         android:id="@+id/details_supplier_phone_number"
         style="@style/DetailsFieldStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:autoLink="phone"
         android:hint="@string/phone_number"
@@ -191,8 +180,6 @@
         android:id="@+id/call_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/call"
         android:textAlignment="center"
