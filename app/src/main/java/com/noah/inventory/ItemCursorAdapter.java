@@ -33,7 +33,7 @@ public class ItemCursorAdapter extends CursorAdapter {
      * @param context app context
      * @param cursor  The cursor from which to get the data. The cursor is already
      *                moved to the correct position.
-     * @param parent  The parent to which the new view is attached to
+     * @param parent  The parent to which the new view is attached to.
      * @return the newly created list item view.
      */
     @Override

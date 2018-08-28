@@ -2,7 +2,6 @@ package com.noah.inventory;
 
 import android.app.LoaderManager;
 import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -46,7 +45,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         });
 
         // Find the ListView which will be populated with the item data
-        ListView itemListView = (ListView) findViewById(R.id.list);
+        final ListView itemListView = (ListView) findViewById(R.id.list);
 
         // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
         View emptyView = findViewById(R.id.empty_view);
@@ -55,6 +54,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         //An adapter to create a list item for each row of item data in the Cursor.
         mCursorAdapter = new ItemCursorAdapter(this, null);
         itemListView.setAdapter(mCursorAdapter);
+
 
         //kick off the loader
         getLoaderManager().initLoader(ITEM_LOADER, null, this);
